@@ -23,7 +23,11 @@ if __name__ == '__main__':
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # Database engine
-        'NAME': BASE_DIR / 'db.sqlite3',        # Database file path
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'data_db.sqlite3',
+    },
+    'auth': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'auth.db',
     }
 }
