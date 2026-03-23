@@ -20,3 +20,10 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',  # Database engine
+        'NAME': BASE_DIR / 'db.sqlite3',        # Database file path
+    }
+}
