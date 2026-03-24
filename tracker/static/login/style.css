@@ -1,15 +1,57 @@
+.barlow-semibold {
+  font-family: "Barlow", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   margin: 0;
+  background-color: whitesmoke;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .login-container {
-  width: 300px;
+  background-color: white;
+  width: 100%;
+  max-width: 350px;
   margin: 100px auto;
-  padding: 20px;
+  padding: 30px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 8px; 
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-sizing: border-box;
+}
+
+.login-container button {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.login-container input {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  padding: 10px 12px;
+  font-size: 13px
+}
+
+.login-container img {
+  max-width: 100%;         
+  height: auto;
+  display: block;
+  margin: 0 auto 20px auto;
+}
+
+@media (max-width: 400px) {
+  .login-container {
+    padding: 20px;
+  }
 }
