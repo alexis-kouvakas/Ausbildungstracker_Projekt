@@ -20,8 +20,8 @@
 
     <div class='nav'>
       <h3 class='barlow-semibold'>Kursliste:</h3>
-      <a href="{% url 'kursliste' 'BS' %}" {% if liste == 'BS' %}class="active"{% endif %}>Berufsschule</a>    
-      <a href="{% url 'kursliste' 'DRV' %}" {% if liste == 'DRV' %}class="active"{% endif %}>intern</a>
+      <a href="{% url 'kursliste' 'BS' %}" {% if aktuelle_liste == 'BS' %}class="active"{% endif %}>Berufsschule</a>    
+      <a href="{% url 'kursliste' 'DRV' %}" {% if aktuelle_liste == 'DRV' %}class="active"{% endif %}>intern</a>
     </div>
     <div style="display: flex; justify-content: center; width: 100%;">
     <canvas id="statusChart" style="max-width: 350px; max-height: 200px;"></canvas>
@@ -34,15 +34,21 @@
         <tr>
           <td class='barlow'>{{ kurs.Kursname }}</td>
           <td>
-            <select name="status_{{ kurs.Kursname }}">
-              {% for option in status_optionen %}
-            <option value="{{ option }}"
-                    {% if kurs.Status == option %}selected{% endif %}>
-            {{ option }}
-            </option>
-            {% endfor %}
-          </select>
-        </td>
+            <select name="status_{{ kurs.Kursname }}" class="form-select">
+    
+    <option value="offen" {% if kurs.Status == 'offen' %}selected{% endif %}>
+        offen
+    </option>
+    
+    <option value="in Bearbeitung" {% if kurs.Status == 'in Bearbeitung' %}selected{% endif %}>
+        in Bearbeitung
+    </option>
+    
+    <option value="abgeschlossen" {% if kurs.Status == 'abgeschlossen' %}selected{% endif %}>
+        abgeschlossen
+    </option>
+
+</select>        </td>
       </tr>
       {% endfor %}
       <td></td>
@@ -55,16 +61,16 @@
     const counts = {
         offen: {{ status_counts.offen|default:0 }},
         in_bearbeitung: {{ status_counts.in_bearbeitung|default:0 }},
-        fertig: {{ status_counts.fertig|default:0 }},
+        abgeschlossen: {{ status_counts.abgeschlossen|default:0 }},
     };
 
     new Chart(document.getElementById('statusChart'), {
       type: 'doughnut',
       data: {
-        labels: ['Offen', 'In Bearbeitung', 'Fertig'],
+        labels: ['offen', 'in Bearbeitung', 'abgeschlossen'],
         datasets: [{
-          data: [counts.offen, counts.in_bearbeitung, counts.fertig],
-          backgroundColor: ['#e0e0e0', '#4a6fa5', '#3a5a8c'],
+          data: [counts.offen, counts.in_bearbeitung, counts.abgeschlossen],
+          backgroundColor: ['#e0e0e0', '#d7df24', '#6b85a6'],
         }]
       },
       options: {
