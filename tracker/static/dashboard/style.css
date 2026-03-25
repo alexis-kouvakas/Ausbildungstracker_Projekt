@@ -1,0 +1,117 @@
+.barlow {
+  font-family: "Barlow", sans-serif;
+  font-style: normal;
+}
+
+
+.barlow-semibold {
+  font-family: "Barlow", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: whitesmoke;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.container {
+  background-color: white;
+  width: 100%;
+  max-width: 650px;
+  margin: 20px auto;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 8px; 
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-sizing: border-box;
+}
+
+.container button {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  width: 110px;
+}
+
+.container img {
+  max-width: 300px;
+  height: auto;
+  display: block;
+  margin-left: 0;
+  margin-right: auto;
+  padding-bottom: 25px;
+}
+
+.nav {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    padding 4px 24px;
+}
+
+.nav a {
+    text-decoration: none;
+    background-color: #6b85a6;
+    color: white;
+    font-family: "Barlow", sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 13px;    padding: 4px 14px;
+    border: 2px solid #6b85a6;
+    border-radius: 20px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav a:visited {
+    color: white;
+}
+
+.nav a:hover {
+    background-color: #4a6fa5;
+    color: white;
+    border-bottom: 2px solid #4a6fa5;
+}
+
+.nav a.active {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+td, th {
+    padding: 8px 8px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+th {
+    text-align: left;
+}
+
+select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-family: "Barlow", sans-serif;
+    font-size: 13px;
+    background-color: #fafafa;
+    width: 110px;
+}
