@@ -73,26 +73,16 @@ WSGI_APPLICATION = "tracker.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'login_db',
-        'USER': 'walter',
-        'PASSWORD': 'Fu1mjs!',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Datenbank',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',
-        'PORT': '3306',
-    },
-    'tracker_db': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tracker_db',
-        'USER': 'walter',
-        'PASSWORD': 'Fu1mjs!',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '5432',
     }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 AUTH_USER_MODEL = 'login.Azubi'
