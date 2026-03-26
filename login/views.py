@@ -11,7 +11,7 @@ def login_prompt(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("/dashboard/")
+            return redirect("/dashboard/gesamtansicht")
         else:
             return render(
                 request, "login/login.html", {"error": "Falsche Zugangsdaten"}
