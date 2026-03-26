@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "login",
     "dashboard",
+    "feedback_azubi",
 ]
 
 MIDDLEWARE = [
