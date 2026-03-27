@@ -7,6 +7,24 @@ from django.contrib.auth import logout
 
 @login_required
 def gesamtansicht(request):
+    if request.method == "POST":
+        kurse = Kurs.objects.filter(benutzer=request.user).order_by('Liste', 'id')
+        feedback_kurs_id = None
+
+        for kurs in kurse:
+            neuer_status = request.POST.get(f"status_{kurs.Kursname}")
+            if neuer_status and neuer_status != kurs.Status:
+                if neuer_status == "abgeschlossen" and kurs.Liste == "DRV":
+                    feedback_kurs_id = kurs.id
+                
+                kurs.Status = neuer_status
+                kurs.save()
+        
+        if feedback_kurs_id:
+            return redirect('feedback_form', kurs_id=feedback_kurs_id)
+
+        return redirect(request.path)
+
     kurse = Kurs.objects.filter(benutzer=request.user).order_by('Liste', 'id')
     raw_counts = Counter(kurs.Status for kurs in kurse)
     status_counts = {

@@ -1,81 +1,94 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-<title>Dashboard</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="{% static 'feedback_azubi/style.css' %}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kursfeedback</title>
+    <link rel="stylesheet" href="{% static 'feedback_azubi/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
 </head>
-
 <body>
-  <div class='container'>
 
-  <div class="header-container">
-    <img src="{% static 'dashboard/Deutsche_Rentenversicherung_Bund_logo.svg.png' %}" alt="DRVBUND">
-    <form action="{% url 'logout' %}" method="post" style="display: inline;">
-    {% csrf_token %}
-    <span class="logout">
-    <button>
-	   <span class="username"> {{user.username}} </span>
-	   <span style="text-decoration: none;">abmelden</span>
-    </button>
-    </span>
-</form>
-  </div>
-    <h2 class="barlow-semibold"><span style="color: #6b85a6;">Ausbildungstracker</span></h2>
-
+<div class="container">
+    <div class="header-container">
+        <img src="{% static 'dashboard/Deutsche_Rentenversicherung_Bund_logo.svg.png' %}" alt="DRVBUND">
+        </div>
+<h2 class="barlow-semibold"><span style="color: #6b85a6;">Ausbildungstracker</span></h2>
       <h3 class='barlow-semibold'>Kursfeedback</h3>
 
-      <form action="{% url 'submit_feedback' %}" method="post" class="feedback-form">
-    {% csrf_token %}
+    <form action="{% url 'submit_feedback' %}" method="post" class="feedback-form">
+        {% csrf_token %}
 
-    <div class="form-group">
-        <label>Kursleitung:</label>
-        <input type="text" name="kursleitung" required>
-    </div>
+        <div class="form-group">
+            <label>Kursname</label>
+            <input type="text" value="{{ anzeigename }}" readonly style="background-color: #e9ecef; color: #666;">
+            <input type="hidden" name="kursname" value="{{ kurs.id }}">
+        </div>
 
-    <div class="form-group">
-        <label>Kursname:</label>
-	<input type="text" value="{{ kurs.Kursname }}" readonly style="background-color: #e9ecef; color: #666;">
-        
-        <input type="hidden" name="kursname" value="{{ kurs.id }}">    </div>
+        <div class="form-group">
+            <label>Kursleitung</label>
+            <input type="text" name="kursleitung" required>
+        </div>
 
-    <div class="form-group">
-        <label>Lehrgangsnummer:</label>
-        <input type="text" name="lehrgangsnummer">
-    </div>
+        <div class="form-group">
+            <label>Lehrgangsnummer</label>
+            <input type="text" name="lehrgangsnummer" required>
+        </div>
 
-    <div class="form-group">
-        <label>Als wie hilfreich empfandest du den Kurs auf einer Skala von 1 bis 10?:</label>
-        <input type="number" name="bewertung_kurs" min="1" max="10" required>
-    </div>
+	<br>
 
-    <div class="form-group">
-        <label>Wie schätzt du die Kompetenz des vortragenden Dozenten auf einer Skala von 1 bis 10 ein?:</label>
-        <input type="number" name="kompetenz_dozent" min="1" max="10" required>
-    </div>
+        <div class="form-group">
+            <label>Wie zufrieden waren Sie insgesamt mit dem Kurs?</label>
+            <div class="rating-container">
+                {% for i in "0987654321"|make_list %}
+                <input type="radio" name="bewertung_kurs" id="kurs_{{ forloop.revcounter }}" value="{{ forloop.revcounter }}" required>
+                <label for="kurs_{{ forloop.revcounter }}">★</label>
+                {% endfor %}
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label>Als wie hilfreich empfandest du das ILIAS-Modul auf einer Skala von 1 bis 10?:</label>
-        <input type="number" name="ilias_modul" min="1" max="10" required>
-    </div>
+        <div class="form-group">
+            <label>Wie schätzen Sie die fachliche Kompetenz der Kursleitung ein?</label>
+            <div class="rating-container">
+                {% for i in "0987654321"|make_list %}
+                <input type="radio" name="kompetenz_dozent" id="komp_{{ forloop.revcounter }}" value="{{ forloop.revcounter }}" required>
+                <label for="komp_{{ forloop.revcounter }}">★</label>
+                {% endfor %}
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label>Wie sicher fühlst du dich beim Anwenden der vermittelten Inhalte auf einer Skala von 1 bis 10?:</label>
-        <input type="number" name="selbsteinschaetzung" min="1" max="10" required>
-    </div>
+        <div class="form-group">
+            <label>Als wie hilfreich empfanden Sie das ILIAS-Modul?</label>
+            <div class="rating-container">
+                {% for i in "0987654321"|make_list %}
+                <input type="radio" name="ilias_modul" id="ilias_{{ forloop.revcounter }}" value="{{ forloop.revcounter }}" required>
+                <label for="ilias_{{ forloop.revcounter }}">★</label>
+                {% endfor %}
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label>Sonstige Anmerkungen:</label>
-        <textarea name="anmerkungen" rows="4"></textarea>
-    </div>
+        <div class="form-group">
+            <label>Wie schätzen Sie Ihren eigenen Lernerfolg ein?</label>
+            <div class="rating-container">
+                {% for i in "0987654321"|make_list %}
+                <input type="radio" name="selbsteinschaetzung" id="self_{{ forloop.revcounter }}" value="{{ forloop.revcounter }}" required>
+                <label for="self_{{ forloop.revcounter }}">★</label>
+                {% endfor %}
+            </div>
+        </div>
 
-    <button type="submit" class="submit-btn">Feedback absenden</button>
-</form>
+	<br>
+
+        <div class="form-group">
+            <label>Sonstige Anmerkungen</label>
+            <textarea name="anmerkungen" rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Feedback absenden</button>
+    </form>
+</div>
+
 </body>
 </html>

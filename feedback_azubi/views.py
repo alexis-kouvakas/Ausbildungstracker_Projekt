@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import FeedbackFormular
 from dashboard.models import Kurs
-
+@login_required
 def index(request, kurs_id):
     aktueller_kurs = get_object_or_404(Kurs, id=kurs_id)
     anzeigename = aktueller_kurs.Kursname if aktueller_kurs.Kursname else f"Kurs #{aktueller_kurs.id}"
@@ -13,6 +14,7 @@ def index(request, kurs_id):
     }
     return render(request, "feedback_azubi/index.html", context)
 
+@login_required
 def submit_feedback(request):
     if request.method == 'POST':
         FeedbackFormular.objects.create(
